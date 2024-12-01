@@ -1,16 +1,20 @@
-# This is a sample Python script.
+import tkinter as tk
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+window = tk.Tk()
+window.title('Римский шифратор')
+window.geometry("1280x1024")
+window.resizable(False, False)
+
+# Кнопки
+button_ru = tk.Button(window, text='RU')   # Кнопка Русского языка
+button_ru.place(x=100, y=100)
+button_eng = tk.Button(window, text='EN')   # Кнопка Английского языка
+button_eng.place(x=200, y=100)
+button_encrypt = tk.Button(window, text='Шифровать')   # Кнопка шифрования
+button_encrypt.place(x=300, y=100)
+button_decrypt = tk.Button(window, text='Дешифровать')   # Кнопка дешифрования
+button_decrypt.place(x=400, y=100)
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
 
-
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+window.mainloop()
