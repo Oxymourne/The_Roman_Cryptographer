@@ -21,7 +21,7 @@ def encryption_text():  # Забираем значения из поля вво
         output_field.insert("1.0", encryption(original_text, step))
         error_label.place_forget()
     else:
-        error_label.place(x=500, y=550)
+        error_label.place(x=335, y=325)
 
 
 def decryption_text():  # Забираем значения из поля ввода дешифруем и передаем в поле вывода
@@ -41,7 +41,7 @@ def decryption_text():  # Забираем значения из поля вво
         output_field.insert("1.0", decryption(original_text, step))
         error_label.place_forget()
     else:
-        error_label.place(x=500, y=550)
+        error_label.place(x=335, y=325)
 
 
 def clear_input():  # Очистка окна ввода
@@ -93,30 +93,30 @@ def decryption(text, decryption_step):  # Функция Дешифровани�
 
 window = tk.Tk()
 window.title('Римский шифратор')
-window.geometry("1280x1024")
+window.geometry("800x600")
 window.resizable(False, False)
 
 # Кнопки
 button_clear = tk.Button(window, text='Очистить', width=12, height=2, command=clear_input)  # Кнопка очистки поля ввода
-button_clear.place(x=950, y=525)
+button_clear.place(x=550, y=300)
 button_encrypt = tk.Button(window, text='Шифровать', width=12, height=2, command=encryption_text)  # Кнопка шифрования
-button_encrypt.place(x=100, y=525)
+button_encrypt.place(x=50, y=300)
 button_decrypt = tk.Button(window, text='Дешифровать', width=12, height=2, command=decryption_text)  # Кнопка дешифрования
-button_decrypt.place(x=1090, y=525)
+button_decrypt.place(x=657, y=300)
 
 # Текстовые блоки
 step_field = tk.Entry(window, width=4)
-step_field.place(x=450, y=550)
+step_field.place(x=310, y=325)
 input_field = tk.Text(window)
-input_field.place(x=100, y=150, width=1080, height=350)
+input_field.place(x=50, y=90, width=700, height=200)
 output_field = tk.Text(window)
-output_field.place(x=100, y=624, width=1080, height=350)
+output_field.place(x=50, y=375, width=700, height=200)
 
 # Лейблы
 step_label = tk.Label(window, text='Укажите шаг шифрования')
-step_label.place(x=280, y=550)
+step_label.place(x=150, y=325)
 error_label = tk.Label(window, text='Введите число', fg="#ff0000")
 header_label = tk.Label(window, text='The Roman cryptographer', font=("Arial", 32, "bold"), anchor="center")
-header_label.place(x=350, y=50)
+header_label.place(x=120, y=25)
 
 window.mainloop()
