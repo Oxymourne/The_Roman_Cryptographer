@@ -11,14 +11,27 @@ def encryption_text():  # Забираем значения из поля вво
     step = step_field.get().strip()
     if step == '':
         flag = False
-    for digit in step:
-        if not digit.isdigit():
-            flag = False
-    if flag is True:
+    if step[0] == '-':
+        straight_step = False
+        for i in range(1, len(step)):
+            if not step[i].isdigit():
+                flag = False
+    else:
+        straight_step = True
+        for i in range(len(step)):
+            if not step[i].isdigit():
+                flag = False
+    if flag is True and straight_step is True:
         step = int(step)
         original_text = input_field.get("1.0", "end").strip()
         output_field.delete("1.0", "end")
         output_field.insert("1.0", encryption(original_text, step))
+        error_label.place_forget()
+    elif flag is True and straight_step is False:
+        step = abs(int(step))
+        original_text = input_field.get("1.0", "end").strip()
+        output_field.delete("1.0", "end")
+        output_field.insert("1.0", decryption(original_text, step))
         error_label.place_forget()
     else:
         error_label.place(x=335, y=325)
@@ -31,14 +44,27 @@ def decryption_text():  # Забираем значения из поля вво
     step = step_field.get().strip()
     if step == '':
         flag = False
-    for digit in step:
-        if not digit.isdigit():
-            flag = False
-    if flag is True:
+    if step[0] == '-':
+        straight_step = False
+        for i in range(1, len(step)):
+            if not step[i].isdigit():
+                flag = False
+    else:
+        straight_step = True
+        for i in range(len(step)):
+            if not step[i].isdigit():
+                flag = False
+    if flag is True and straight_step is True:
         step = int(step)
         original_text = input_field.get("1.0", "end").strip()
         output_field.delete("1.0", "end")
         output_field.insert("1.0", decryption(original_text, step))
+        error_label.place_forget()
+    elif flag is True and straight_step is False:
+        step = abs(int(step))
+        original_text = input_field.get("1.0", "end").strip()
+        output_field.delete("1.0", "end")
+        output_field.insert("1.0", encryption(original_text, step))
         error_label.place_forget()
     else:
         error_label.place(x=335, y=325)
@@ -46,6 +72,7 @@ def decryption_text():  # Забираем значения из поля вво
 
 def clear_input():  # Очистка окна ввода
     input_field.delete("1.0", "end")
+    output_field.delete("1.0", "end")
 
 
 def encryption(text, encryption_step):  # Функция Шифрования
@@ -54,12 +81,12 @@ def encryption(text, encryption_step):  # Функция Шифрования
         ascii_code = ord(text[i])
         if 32 <= ascii_code <= 126:  # Условие нахождения символа в таблице символов и инагл алфавита
             if ascii_code + encryption_step > 126:
-                new_text += chr(ascii_code - 95 + encryption_step)
+                new_text += chr(((ascii_code - 32 + encryption_step) % 95 + 95) % 95 + 32)
             else:
                 new_text += chr(ascii_code + encryption_step)
         elif 1040 <= ascii_code <= 1103:  # Условие нахождения в Русской части символов
             if ascii_code + encryption_step > 1103:
-                new_text += chr(ascii_code - 64 + encryption_step)
+                new_text += chr(((ascii_code - 1040 + encryption_step) % 64 + 64) % 64 + 1040)
             else:
                 new_text += chr(ascii_code + encryption_step)
         else:
@@ -68,21 +95,18 @@ def encryption(text, encryption_step):  # Функция Шифрования
     return new_text
 
 
-'''Поправит функцию. Если код - шаг меньше 32 выдает пустоту'''
-
-
 def decryption(text, decryption_step):  # Функция Дешифрования
     new_text = ''
     for i in range(len(text)):
         ascii_code = ord(text[i])
         if 32 <= ascii_code <= 126:  # Условие нахождения символа в таблице символов и инагл алфавита
-            if ascii_code - decryption_step < 33:
-                new_text += chr(ascii_code + 94 - decryption_step)
+            if ascii_code + decryption_step > 126:
+                new_text += chr(((ascii_code - 32 - decryption_step) % 95 + 95) % 95 + 32)
             else:
                 new_text += chr(ascii_code - decryption_step)
         elif 1040 <= ascii_code <= 1103:  # Условие нахождения в Русской части символов
-            if ascii_code - decryption_step < 1040:
-                new_text += chr(ascii_code + 64 - decryption_step)
+            if ascii_code + decryption_step > 1103:
+                new_text += chr(((ascii_code - 1040 - decryption_step) % 64 + 64) % 64 + 1040)
             else:
                 new_text += chr(ascii_code - decryption_step)
         else:
@@ -101,7 +125,8 @@ button_clear = tk.Button(window, text='Очистить', width=12, height=2, co
 button_clear.place(x=550, y=300)
 button_encrypt = tk.Button(window, text='Шифровать', width=12, height=2, command=encryption_text)  # Кнопка шифрования
 button_encrypt.place(x=50, y=300)
-button_decrypt = tk.Button(window, text='Дешифровать', width=12, height=2, command=decryption_text)  # Кнопка дешифрования
+button_decrypt = tk.Button(window, text='Дешифровать', width=12, height=2,
+                           command=decryption_text)  # Кнопка дешифрования
 button_decrypt.place(x=657, y=300)
 
 # Текстовые блоки
