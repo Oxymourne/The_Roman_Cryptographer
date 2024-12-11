@@ -80,15 +80,9 @@ def encryption(text, encryption_step):  # Функция Шифрования
     for i in range(len(text)):
         ascii_code = ord(text[i])
         if 32 <= ascii_code <= 126:  # Условие нахождения символа в таблице символов и инагл алфавита
-            if ascii_code + encryption_step > 126:
-                new_text += chr(((ascii_code - 32 + encryption_step) % 95 + 95) % 95 + 32)
-            else:
-                new_text += chr(ascii_code + encryption_step)
+            new_text += chr(((ascii_code - 32 + encryption_step) % 95 + 95) % 95 + 32)
         elif 1040 <= ascii_code <= 1103:  # Условие нахождения в Русской части символов
-            if ascii_code + encryption_step > 1103:
-                new_text += chr(((ascii_code - 1040 + encryption_step) % 64 + 64) % 64 + 1040)
-            else:
-                new_text += chr(ascii_code + encryption_step)
+            new_text += chr(((ascii_code - 1040 + encryption_step) % 64 + 64) % 64 + 1040)
         else:
             new_text += text[i]
 
@@ -100,15 +94,9 @@ def decryption(text, decryption_step):  # Функция Дешифровани�
     for i in range(len(text)):
         ascii_code = ord(text[i])
         if 32 <= ascii_code <= 126:  # Условие нахождения символа в таблице символов и инагл алфавита
-            if ascii_code + decryption_step > 126:
-                new_text += chr(((ascii_code - 32 - decryption_step) % 95 + 95) % 95 + 32)
-            else:
-                new_text += chr(ascii_code - decryption_step)
+            new_text += chr(((ascii_code - 32 - decryption_step) % 95 + 95) % 95 + 32)
         elif 1040 <= ascii_code <= 1103:  # Условие нахождения в Русской части символов
-            if ascii_code + decryption_step > 1103:
-                new_text += chr(((ascii_code - 1040 - decryption_step) % 64 + 64) % 64 + 1040)
-            else:
-                new_text += chr(ascii_code - decryption_step)
+            new_text += chr(((ascii_code - 1040 - decryption_step) % 64 + 64) % 64 + 1040)
         else:
             new_text += text[i]
 
