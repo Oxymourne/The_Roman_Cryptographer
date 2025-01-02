@@ -2,16 +2,25 @@ import tkinter as tk
 
 
 def decryption_true():
+    '''
+    Врзвращаем True, если нажммаем на кнопку "Дешифрвание"
+    '''
     global decryption_flag
     decryption_flag = True
 
 
 def decryption_false():
+    '''
+    Возвращаем False, если нажимаем кнопку "Шифрование"
+    '''
     global decryption_flag
     decryption_flag = False
 
 
 def call_functions_encryption():
+    '''
+    :return:
+    '''
     decryption_false()
     encryption_text()
 
